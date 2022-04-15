@@ -140,8 +140,9 @@ def findLandmarks(user_lat, user_long):
             print("Nearby Location : ", list[x].get("Name"))
             Locations.append(list[x].get("Name"))
     travel=input("Enter a location name\n")
-    if(travel.isupper() == "False"):
-        travel = travel.upper
+    if(travel.isupper() == False):
+        travel = travel.upper()
+
     if travel in Locations:
         ctr = 1
         while int(ctr) <= 5:
