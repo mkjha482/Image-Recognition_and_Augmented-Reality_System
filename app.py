@@ -86,8 +86,9 @@ def ar_start(img, destin):
                 good.append(m)
         #print(len(good))
         imgFeatures = cv2.drawMatches(imageTarget, kp1, imgWebcam, kp2, good, None, flags=2)
+        imgChk = cv2.resize(imgFeatures,(wt,ht))
 
-        if len(good) > 10:
+        if len(good) > 15:
             detection = True
             srcPts = np.float32([kp1[m.queryIdx].pt for m in good]).reshape(-1,1,2)
             dstPts = np.float32([kp2[m.trainIdx].pt for m in good]).reshape(-1,1,2)
@@ -113,7 +114,7 @@ def ar_start(img, destin):
             #cv2.imshow('Mask',maskNew)
             #cv2.imshow('imgWarp', imgWarp)
             #cv2.imshow('img2',img2)
-            cv2.imshow('Stacked', imgStacked)
+            cv2.imshow('Stacked', imgChk)
             cv2.imshow('Augmentation', imgAug)
 
         #cv2.imshow('ImageFeatures',imgFeatures)
@@ -139,6 +140,8 @@ def findLandmarks(user_lat, user_long):
             print("Nearby Location : ", list[x].get("Name"))
             Locations.append(list[x].get("Name"))
     travel=input("Enter a location name\n")
+    if(travel.isupper() == "False"):
+        travel = travel.upper
     if travel in Locations:
         ctr = 1
         while int(ctr) <= 5:
