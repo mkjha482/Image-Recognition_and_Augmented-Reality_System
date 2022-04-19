@@ -88,7 +88,7 @@ def ar_start(img, destin):
         imgFeatures = cv2.drawMatches(imageTarget, kp1, imgWebcam, kp2, good, None, flags=2)
         imgChk = cv2.resize(imgFeatures,(wt,ht))
 
-        if len(good) > 15:
+        if len(good) > 7:
             detection = True
             srcPts = np.float32([kp1[m.queryIdx].pt for m in good]).reshape(-1,1,2)
             dstPts = np.float32([kp2[m.trainIdx].pt for m in good]).reshape(-1,1,2)
@@ -136,7 +136,7 @@ def findLandmarks(user_lat, user_long):
     for x in range(len(list)):
         a = float(list[x].get("Latitude"))
         b = float(list[x].get("Longitude"))   
-        if((b-user_long <=0.01) and (a-user_lat <=0.01)):
+        if((b-user_long <=0.05) and (a-user_lat <=0.05)):
             print("Nearby Location : ", list[x].get("Name"))
             Locations.append(list[x].get("Name"))
     travel=input("Enter a location name\n")
